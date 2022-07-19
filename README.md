@@ -1,29 +1,40 @@
 # Дипломный проект профессии «Тестировщик ПО»
 
+В рамках данного проекта необходимо автоматизировать тестирование комплексного сервиса покупки тура, взаимодействующего с СУБД и API Банка.
 
-##Процедура запуска авто-тестов:
+База данных хранит информацию о заказах, платежах, статусах карт, способах оплаты.
+
+Покупка тура возможна с помощью карты и в кредит. Данные по картам обрабатываются отдельными сервисами (Payment Gate, Credit Gate)
+
+## Процедура запуска авто-тестов:
 
 ---
 * На локальном компьютере должны быть установлены: IntelliJ IDEA Ultimate и Docker
 * Склонировать репозиторий c [Дипломным проектом](https://github.com/Rigo656/Diplom-QA.git) и открыть его в IntelliJ IDEA Ultimate.
-* Запустить Docker;
-* В терминале развернуть контейнер с помощью команды
+* Запустить Docker
+* В терминале развернуть контейнера (с MySQL и PostgreSQL, а также NodeJS) командой:
 
-   >docker-compose up
+      docker-compose up
 
-* В новом терминале запустить целевое приложение:
+* В новом терминале запустить целевое приложение в зависимости от базы данных:
 
-   >для mySQL - java -jar artifacts/aqa-shop.jar --spring.profiles.active=mysql
+      для mySQL - java -jar artifacts/aqa-shop.jar --spring.profiles.active=mysql
 
-   >для postgresgl - java -jar artifacts/aqa-shop.jar --spring.profiles.active=postgresql
+      для postgresgl - java -jar artifacts/aqa-shop.jar --spring.profiles.active=postgresql
 
-* В новом терминале запустить тесты используя команды:
+* В новом терминале запустить тесты используя команды в зависимости от базы данных:
 
-   >для mySQL - ./gradlew test -Durl=jdbc:mysql://localhost:3306/app -Duser=app -Dpassword=pass
+      для mySQL - ./gradlew test -Durl=jdbc:mysql://localhost:3306/app -Duser=app -Dpassword=pass
 
-   >для postgresgl - ./gradlew test -Durl=jdbc:postgresql://localhost:5432/app -Duser=app -Dpassword=pass
+      для postgresgl - ./gradlew test -Durl=jdbc:postgresql://localhost:5432/app -Duser=app -Dpassword=pass
 
-* В новом терминале сформировать отчет командой
+* Если необходимо перезапустить приложение и/или тесты (например, для другой БД), необходимо выполнить остановку работы в запущенных ранее вкладках терминала, нажав в них Ctrl+С
+## Формирование отчёта
 
-   >./gradlew allureServe
+---
+В новом терминале сформировать отчет командой
+
+      ./gradlew allureServe
+
+Сгенерированный отчет откроется в браузере автоматически. После просмотра и закрытия отчета можно остановить работу команды, нажав Ctrl+С.
 

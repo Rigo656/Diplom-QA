@@ -98,6 +98,10 @@ public class DataHelper {
         return "";
     }
 
+    public static String getMonthZero() {
+        return "00";
+    }
+
     public static String getYearFieldPrevious() {
         return "21";
     }

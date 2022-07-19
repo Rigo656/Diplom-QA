@@ -115,7 +115,6 @@ public class PaymentInCashTest {
         assertEquals(expected, actual);
     }
 
-
     //Негативные сценарии
 
     @Description( value = "Номер карты содержащей меньше 16 цифр")
@@ -200,6 +199,18 @@ public class PaymentInCashTest {
         val cvc = DataHelper.getValidCvc();
         paymentPage.fillOutLine(cardNumber, month, year, owner, cvc);
         paymentPage.messageAboutIncorrectDataFormat();
+    }
+
+    @Description( value = "Ввести в поле месяца нулевое значение")
+    @Test
+    void shouldMonthZero() {
+        val cardNumber = DataHelper.getFirstCardNumber();
+        val month = DataHelper.getMonthZero();
+        val year = DataHelper.getValidYear();
+        val owner = DataHelper.getValidOwner();
+        val cvc = DataHelper.getValidCvc();
+        paymentPage.fillOutLine(cardNumber, month, year, owner, cvc);
+        paymentPage.messageAboutIncorrectCardExpirationDate();
     }
 
     @Description( value = "Ввести в поле года прошедший год")

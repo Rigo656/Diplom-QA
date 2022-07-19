@@ -202,6 +202,18 @@ public class PaymentOnCreditTest {
         creditPage.messageAboutIncorrectDataFormat();
     }
 
+    @Description( value = "Ввести в поле месяца нулевое значение")
+    @Test
+    void shouldMonthZero() {
+        val cardNumber = DataHelper.getFirstCardNumber();
+        val month = DataHelper.getMonthZero();
+        val year = DataHelper.getValidYear();
+        val owner = DataHelper.getValidOwner();
+        val cvc = DataHelper.getValidCvc();
+        creditPage.fillOutLine(cardNumber, month, year, owner, cvc);
+        creditPage.messageAboutIncorrectCardExpirationDate();
+    }
+
     @Description( value = "Ввести в поле года прошедший год")
     @Test
     void shouldFieldPastYear() {
